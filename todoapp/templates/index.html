@@ -1,0 +1,64 @@
+{% extends 'base.html'%}
+
+
+{% block content%}
+
+<h3 class="text-center">Todo App</h3>
+<hr/>
+
+<div class="row">
+    <div class="col-md-6 col-sm-12 mx-auto">
+
+        <form action="{% url 'index' %}" method="post">
+            {%csrf_token%}
+            <div class="d-flex">
+                <input type="text" name="text" id="text" class="form-control" placeholder="Add todo..." autocomplete="off" required>
+                <button type="submit" class="ms-2 me-2 ps-3 pe-3 btn btn-success btn-sm" id="ToastBtn">Add</button>
+
+            </div>
+
+        </form>
+        <div class="my-5">
+            <ul class="list-group">
+                {%for todo in todos %}
+                <li class="list-group-item">
+                    <div class="d-flex justify-content-between">
+                      <span>{{ todo.text }}</span>
+                      <a class="btn btn-danger btn-sm" href="{% url 'deleteTodo' todo.id %}">X</a>
+                    </div>
+                  </li>
+                  {% endfor%}
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        
+        <strong class="me-auto">TaskList</strong>
+        <small>0 mins ago</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        Task created successfully!!
+      </div>
+    </div>
+  </div>
+  
+
+<script>
+    const toastTrigger = document.getElementById('ToastBtn')
+const toastLiveExample = document.getElementById('liveToast')
+if (toastTrigger) {
+  toastTrigger.addEventListener('click', () => {
+    const toast = new bootstrap.Toast(toastLiveExample)
+
+    toast.show()
+  })
+}
+
+    </script>
+
+
+{% endblock %}
