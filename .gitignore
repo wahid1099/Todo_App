@@ -1,2 +1,3 @@
 admin=admin@gmail.com	
 password=root123456
+source djangoenv/bin/activate  (to acitve the virtial environment)
